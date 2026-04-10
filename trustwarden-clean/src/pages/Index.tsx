@@ -3,13 +3,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
-import SecurityProcess from "@/components/sections/SecurityProcess";
 import LeadMagnet from "@/components/sections/LeadMagnet";
 import GlobalReach from "@/components/sections/GlobalReach";
-import MidPageCTA from "@/components/sections/MidPageCTA";
 import heroBg from "@/assets/hero-cyber.jpg";
 import {
-  ShieldCheck, Eye, Cloud, Search, FileCheck, AlertTriangle,
+  ShieldCheck, Eye, Search, AlertTriangle,
   Lock, Users, MessageSquare, Globe, Server
 } from "lucide-react";
 
@@ -25,8 +23,6 @@ const services = [
   { icon: Search, title: "Vulnerability Assessment", desc: "Find and prioritize the gaps in your systems before attackers do." },
   { icon: AlertTriangle, title: "Penetration Testing", desc: "Real-world attack simulations that reveal what automated scanners miss." },
   { icon: Eye, title: "Managed Security Services", desc: "24/7 monitoring and SOC operations so threats don't go unnoticed." },
-  { icon: Cloud, title: "Cloud Security", desc: "Stop misconfigurations before they become breaches across AWS, Azure, and GCP." },
-  { icon: FileCheck, title: "Digital Forensics & IR", desc: "Rapid response and investigation when breaches occur." },
   { icon: Server, title: "Compliance & Security Audit", desc: "ISO 27001, NIST, and GDPR-aligned audits, GRC advisory, and certification preparation." },
   { icon: ShieldCheck, title: "Risk Management", desc: "Understand your risk landscape and act on it with a clear remediation plan." },
 ];
@@ -101,7 +97,7 @@ const Index = () => (
           title="Exactly what you need. Nothing you don't."
           description="End-to-end cybersecurity services designed to protect every layer of your digital infrastructure."
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <motion.div key={s.title} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               <Link to="/services" className="glass rounded-xl p-6 h-full flex flex-col gap-4 group hover:border-primary/30 transition-all duration-300">
@@ -116,16 +112,6 @@ const Index = () => (
         </div>
       </div>
     </section>
-
-    {/* Mid CTA */}
-    <MidPageCTA
-      title="You don't know what you don't know."
-      description="A 30-minute consultation with TrustWarden could surface risks you've never considered — at no cost and no obligation."
-      cta="Book My Free Consultation"
-    />
-
-    {/* Process */}
-    <SecurityProcess />
 
     {/* Why TrustWarden */}
     <section className="py-20 md:py-28 bg-card/50">

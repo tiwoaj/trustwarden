@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
   center?: boolean;
 }
 
-const SectionHeading = ({ label, title, description, center = true }: Props) => (
+const SectionHeading = memo(({ label, title, description, center = true }: Props) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -25,6 +26,8 @@ const SectionHeading = ({ label, title, description, center = true }: Props) => 
       <p className="mt-4 text-muted-foreground max-w-2xl mx-auto leading-relaxed">{description}</p>
     )}
   </motion.div>
-);
+));
+
+SectionHeading.displayName = "SectionHeading";
 
 export default SectionHeading;

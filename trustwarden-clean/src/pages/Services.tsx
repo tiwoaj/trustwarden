@@ -5,7 +5,7 @@ import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
 import MidPageCTA from "@/components/sections/MidPageCTA";
 import {
-  Search, AlertTriangle, Eye, Cloud, FileCheck, Server, ShieldCheck, ChevronRight
+  Search, AlertTriangle, Eye, Server, ShieldCheck, ChevronRight
 } from "lucide-react";
 
 const fadeUp = {
@@ -30,24 +30,10 @@ const services = [
   },
   {
     icon: Eye,
-    title: "Managed Security Services (SOC / Monitoring)",
+    title: "Managed Security Services",
     what: "24/7 Security Operations Center monitoring with real-time threat detection, analysis, and incident response capabilities.",
     why: "Cyber threats don't operate on business hours. Continuous monitoring ensures rapid detection and response to minimize damage.",
     benefits: ["24/7 SOC monitoring", "SIEM management", "Threat intelligence feeds", "Incident escalation & response"],
-  },
-  {
-    icon: Cloud,
-    title: "Cloud Security & Infrastructure Protection",
-    what: "End-to-end security for cloud environments including configuration audits, identity management, and workload protection across AWS, Azure, and GCP.",
-    why: "Cloud misconfigurations are responsible for a majority of breaches. Proper cloud security ensures your data stays protected at scale.",
-    benefits: ["Cloud configuration review", "Identity & access management", "Container & workload security", "Multi-cloud security posture"],
-  },
-  {
-    icon: FileCheck,
-    title: "Digital Forensics & Incident Response",
-    what: "Rapid investigation and containment of security incidents, with thorough forensic analysis to understand the scope and impact of breaches.",
-    why: "When a breach occurs, every minute counts. Fast, expert response minimizes financial loss and reputational damage.",
-    benefits: ["24/7 incident response team", "Malware analysis & reverse engineering", "Evidence preservation & chain of custody", "Post-incident reporting"],
   },
   {
     icon: Server,
@@ -58,7 +44,7 @@ const services = [
   },
   {
     icon: ShieldCheck,
-    title: "Risk Management & Remediation",
+    title: "Risk Management",
     what: "Strategic assessment of organizational risk with actionable remediation plans to reduce exposure and strengthen your overall security posture.",
     why: "Understanding your risk landscape is essential for informed decision-making and resource allocation in cybersecurity.",
     benefits: ["Enterprise risk assessment", "Threat modeling", "Remediation planning & tracking", "Executive risk reporting"],
@@ -132,9 +118,6 @@ const Services = () => (
         ))}
       </div>
     </section>
-
-    {/* Mid CTA */}
-    <MidPageCTA title="Built for Startups and Growing Companies" description="Our Alberta-based team delivers professional security testing for businesses at every stage — from seed-stage startups to mid-size organizations scaling fast." cta="Get Your System Tested Today" />
 
     {/* CTA */}
     <section className="py-20 bg-card/50">

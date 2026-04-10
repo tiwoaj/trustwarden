@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
-import MidPageCTA from "@/components/sections/MidPageCTA";
 import { Shield, Target, Eye, Globe, Users, Award, Building2, MapPin, Handshake } from "lucide-react";
 
 const fadeUp = {
@@ -112,6 +111,24 @@ const About = () => (
       </div>
     </section>
 
+    {/* Values */}
+    <section className="py-16 md:py-24 bg-card/50">
+      <div className="container mx-auto px-4">
+        <SectionHeading label="Our Values" title="What Drives Us" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {values.map((v, i) => (
+            <motion.div key={v.title} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="glass rounded-xl p-6 text-center">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <v.icon className="h-5 w-5 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-2">{v.title}</h3>
+              <p className="text-sm text-muted-foreground">{v.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     {/* Engagement Models */}
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
@@ -160,38 +177,6 @@ const About = () => (
       </div>
     </section>
 
-    {/* Mid CTA */}
-    <MidPageCTA />
-
-    {/* Values */}
-    <section className="py-16 md:py-24 bg-card/50">
-      <div className="container mx-auto px-4">
-        <SectionHeading label="Our Values" title="What Drives Us" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {values.map((v, i) => (
-            <motion.div key={v.title} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="glass rounded-xl p-6 text-center">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <v.icon className="h-5 w-5 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">{v.title}</h3>
-              <p className="text-sm text-muted-foreground">{v.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* CTA */}
-    <section className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 grid-cyber opacity-20" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/15 blur-[100px]" />
-      <div className="container mx-auto px-4 relative z-10 text-center">
-        <SectionHeading title="Ready to Strengthen Your Security?" description="Let's discuss how TrustWarden can protect your business." />
-        <Link to="/contact">
-          <Button variant="glow" size="lg">Book a Free Security Consultation</Button>
-        </Link>
-      </div>
-    </section>
   </Layout>
 );
 

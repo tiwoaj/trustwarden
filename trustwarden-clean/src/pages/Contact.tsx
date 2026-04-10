@@ -7,6 +7,7 @@ import Layout from "@/components/Layout";
 import { Mail, Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
+import { isValidEmail, getErrorMessage } from "@/lib/utils";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -15,8 +16,22 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Required field validation
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast({ title: "Please fill in all required fields.", variant: "destructive" });
+      return;
+    }
+
+    // Email format validation
+    if (!isValidEmail(form.email)) {
+      toast({ title: "Please enter a valid email address.", variant: "destructive" });
+      return;
+    }
+
+    // Offline detection
+    if (!navigator.onLine) {
+      toast({ title: "You appear to be offline.", description: "Please check your connection and try again.", variant: "destructive" });
       return;
     }
 
@@ -35,12 +50,16 @@ const Contact = () => {
       });
 
       if (error || data?.error) {
-        toast({ title: data?.error || "Something went wrong. Please try again.", variant: "destructive" });
+        toast({ title: getErrorMessage(data?.error || error?.message), variant: "destructive" });
         setLoading(false);
         return;
       }
     } catch {
-      toast({ title: "Something went wrong. Please try again.", variant: "destructive" });
+      if (!navigator.onLine) {
+        toast({ title: "You appear to be offline.", description: "Please check your connection and try again.", variant: "destructive" });
+      } else {
+        toast({ title: "Something went wrong. Please try again.", variant: "destructive" });
+      }
       setLoading(false);
       return;
     }

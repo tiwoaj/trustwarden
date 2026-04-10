@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
 const Footer = () => (
   <footer className="border-t border-border/30 bg-card/50">
@@ -7,7 +6,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="md:col-span-1">
           <Link to="/" className="flex items-center mb-4">
-            <img src="/logo-dark.svg" alt="TrustWarden" className="h-9 w-auto" />
+            <img src="/logo-dark.png" alt="TrustWarden" className="h-9 w-auto" />
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Advanced cybersecurity solutions protecting modern businesses from evolving threats.
@@ -17,10 +16,11 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-sm mb-4 text-foreground">Services</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/services" className="hover:text-primary transition-colors">Penetration Testing</Link></li>
             <li><Link to="/services" className="hover:text-primary transition-colors">Vulnerability Assessment</Link></li>
+            <li><Link to="/services" className="hover:text-primary transition-colors">Penetration Testing</Link></li>
             <li><Link to="/services" className="hover:text-primary transition-colors">Managed Security</Link></li>
-            <li><Link to="/services" className="hover:text-primary transition-colors">Cloud Security</Link></li>
+            <li><Link to="/services" className="hover:text-primary transition-colors">Compliance & Audit</Link></li>
+            <li><Link to="/services" className="hover:text-primary transition-colors">Risk Management</Link></li>
           </ul>
         </div>
 
@@ -35,10 +35,7 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold text-sm mb-4 text-foreground">Get Protected</h4>
           <p className="text-sm text-muted-foreground mb-4">Ready to secure your business? Let's talk.</p>
-          <Link to="/contact">
-            <Button variant="glow" size="sm" className="w-full">Book a Free Consultation</Button>
-          </Link>
-          <p className="text-sm text-muted-foreground mt-4">contact@trustwarden.ca</p>
+          <p className="text-sm text-muted-foreground">contact@trustwarden.ca</p>
         </div>
       </div>
 

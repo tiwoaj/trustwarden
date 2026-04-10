@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -15,14 +14,28 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, []);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/30">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <Link to="/" className="flex items-center group">
           <img
-            src="/logo-dark.svg"
+            src="/logo-dark.png"
             alt="TrustWarden"
-            className="h-10 w-auto"
+            className="h-12 w-auto"
+            loading="eager"
+            fetchPriority="high"
           />
         </Link>
 
@@ -41,15 +54,15 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Link to="/contact">
-            <Button variant="glow" size="sm" className="ml-3">
-              Get Protected
-            </Button>
-          </Link>
         </div>
 
         {/* Mobile toggle */}
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
+        <button
+          className="md:hidden text-foreground p-2"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+        >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
@@ -68,7 +81,6 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  onClick={() => setOpen(false)}
                   className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
                     location.pathname === link.path
                       ? "text-primary bg-primary/10"
@@ -78,11 +90,6 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link to="/contact" onClick={() => setOpen(false)}>
-                <Button variant="glow" className="w-full mt-2">
-                  Get Protected
-                </Button>
-              </Link>
             </div>
           </motion.div>
         )}

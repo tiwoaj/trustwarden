@@ -160,16 +160,6 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: "Too many submissions. Please try again later." }, 429);
     }
 
-    const { error: rateLimitInsertError } = await supabaseAdmin.from("submission_rate_limits").insert({
-      ip_address: ipAddress,
-      form_type: parsed.data.form_type,
-    });
-
-    if (rateLimitInsertError) {
-      console.error("Rate limit insert failed", rateLimitInsertError);
-      return jsonResponse({ error: "Something went wrong. Please try again." }, 500);
-    }
-
     const submission = {
       name: parsed.data.name,
       email: parsed.data.email,
@@ -178,10 +168,23 @@ Deno.serve(async (req) => {
     };
 
     const tableName = parsed.data.form_type === "contact" ? "contact_submissions" : "lead_submissions";
-    const { error: submissionError } = await supabaseAdmin.from(tableName).insert(submission);
 
-    if (submissionError) {
-      console.error("Submission insert failed", submissionError);
+    // Run rate limit insert and submission insert in parallel
+    const [rateLimitInsert, submissionInsert] = await Promise.all([
+      supabaseAdmin.from("submission_rate_limits").insert({
+        ip_address: ipAddress,
+        form_type: parsed.data.form_type,
+      }),
+      supabaseAdmin.from(tableName).insert(submission),
+    ]);
+
+    if (rateLimitInsert.error) {
+      console.error("Rate limit insert failed", rateLimitInsert.error);
+      return jsonResponse({ error: "Something went wrong. Please try again." }, 500);
+    }
+
+    if (submissionInsert.error) {
+      console.error("Submission insert failed", submissionInsert.error);
       return jsonResponse({ error: "Something went wrong. Please try again." }, 500);
     }
 
